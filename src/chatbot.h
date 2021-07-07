@@ -11,7 +11,7 @@ class ChatBot
 {
 private:
     // data handles (owned)
-    wxBitmap *_image; // avatar image
+    wxBitmap *_image; // avatar image of the chatbot that is displayed on the chatbots output
 
     // data handles (not owned)
     GraphNode *_currentNode;
@@ -19,7 +19,7 @@ private:
     ChatLogic *_chatLogic;
 
     // proprietary functions
-    int ComputeLevenshteinDistance(std::string s1, std::string s2);
+    int ComputeLevenshteinDistance(std::string s1, std::string s2); // similarity measure between strings --> small levenshtein distances are very simular words. The int is the number of charaters that are different
 
 public:
     // constructors / destructors

@@ -5,6 +5,7 @@
 #include "chatbot.h"
 #include "chatlogic.h"
 #include "chatgui.h"
+#include <memory>
 
 // size of chatbot window
 const int width = 414;
@@ -21,6 +22,11 @@ bool ChatBotApp::OnInit()
     // create window with name and show it
     ChatBotFrame *chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
     chatBotFrame->Show(true);
+    /* 
+     * CAUTION: The chatBotFrame is allocated on the heap and no delete is called afterwards, this is a potential memory leak for the programm.
+     *          Since OnInit() is the entry point, which is only called once and chatBotFrame must exist during the complete runtime of the 
+     *          programm, there is no need to delete the memory, because the memory is freed automatically when the program exits.  
+     */
 
     return true;
 }
@@ -56,13 +62,13 @@ void ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event))
     wxString userText = _userTextCtrl->GetLineText(0);
 
     // add new user text to dialog
-    _panelDialog->AddDialogItem(userText, true);
+    _panelDialog->AddDialogItem(userText, true); // Add user input to the dialog
 
     // delete text in text control
     _userTextCtrl->Clear();
 
     // send user text to chatbot 
-     _panelDialog->GetChatLogicHandle()->SendMessageToChatbot(std::string(userText.mb_str()));
+     _panelDialog->GetChatLogicHandle()->SendMessageToChatbot(std::string(userText.mb_str())); // To let the chatbot know, what the user wants to ask him
 }
 
 BEGIN_EVENT_TABLE(ChatBotFrameImagePanel, wxPanel)
@@ -117,7 +123,7 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     //// STUDENT CODE
     ////
 
-    // create chat logic instance
+    // create chat logic instance on the heap
     _chatLogic = new ChatLogic(); 
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
@@ -134,7 +140,6 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
 {
     //// STUDENT CODE
     ////
-
     delete _chatLogic;
 
     ////

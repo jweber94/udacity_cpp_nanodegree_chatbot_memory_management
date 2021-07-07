@@ -8,8 +8,12 @@ class GraphNode; // forward declaration
 
 class GraphEdge
 {
+/*
+ * No assignment tasks in the GraphEdge class
+ */
+
 private:
-    // data handles (not owned)
+    // data handles (not owned) --> Edges do not own anything - just the connection element with non owning rights of the functional components
     GraphNode *_childNode;
     GraphNode *_parentNode;
 

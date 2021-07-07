@@ -18,7 +18,7 @@ ChatLogic::ChatLogic()
     ////
 
     // create instance of chatbot
-    _chatBot = new ChatBot("../images/chatbot.png");
+    _chatBot = new ChatBot("../images/chatbot.png"); 
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     _chatBot->SetChatLogicHandle(this);
@@ -33,6 +33,7 @@ ChatLogic::~ChatLogic()
     ////
 
     // delete chatbot instance
+    std::cout << "calling delete _chatBot" << std::endl; // DEBUG --> If you call delete, the memory of _chatBot is deallocated and the destructor of the ChatBot class is called
     delete _chatBot;
 
     // delete all nodes

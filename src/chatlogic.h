@@ -12,18 +12,22 @@ class GraphNode;
 
 class ChatLogic
 {
+/*
+* Creates the chatbot answer graph and make it usable by the chatgui 
+*/
+
 private:
     //// STUDENT CODE
     ////
 
-    // data handles (owned)
+    // data handles (owned) --> owned = unique_ptr (more restrictive and needs to use move semantics) or shared_ptr
     std::vector<GraphNode *> _nodes;
-    std::vector<GraphEdge *> _edges;
+    std::vector<GraphEdge *> _edges; // In one of the tasks, the ownership of the edges is moved into the nodes - currently the ChatLogic class owns them both
 
     ////
     //// EOF STUDENT CODE
 
-    // data handles (not owned)
+    // data handles (not owned) --> Currently owned
     GraphNode *_currentNode;
     ChatBot *_chatBot;
     ChatBotPanelDialog *_panelDialog;

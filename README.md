@@ -39,6 +39,13 @@ Currently, the program crashes when you close the window. There is a small bug h
 
 Aside from the bug mentioned above, there are five additional major student tasks in the Memory Management chatbot project, which are:
 
+### Task 0 : Find the bug 
+There is a bug in the chatbot code, such that there is an memory segmentation fault error when closing the chatbot application
+***Solution:***
+* The destructor of the ChatBot class is called twice, but just one ChatBot instance is initialized. 
+* The bug was that the GraphNode class destructor calls the delete keyword for the _chatBot class, but it is already deleted by the destructor of ChatLogic, who owned the ChatBot class originally 
+  + It is useful to create a weak pointer from the ChatLogic class to the ChatBot instance, to delete the ChatBot instance from there, but make exclusive ownership of the chatbot by the currently used GraphNode instance. (Does a weak_ptr work with a unique_ptr?) 
+
 ### Task 1 : Exclusive Ownership 1
 In file `chatgui.h` / `chatgui.cpp`, make `_chatLogic` an exclusive resource to class `ChatbotPanelDialog` using an appropriate smart pointer. Where required, make changes to the code such that data structures and function parameters reflect the new structure. 
 
