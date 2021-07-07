@@ -41,6 +41,7 @@ Aside from the bug mentioned above, there are five additional major student task
 
 ### Task 0 : Find the bug 
 There is a bug in the chatbot code, such that there is an memory segmentation fault error when closing the chatbot application
+
 ***Solution:***
 * The destructor of the ChatBot class is called twice, but just one ChatBot instance is initialized. 
 * The bug was that the GraphNode class destructor calls the delete keyword for the _chatBot class, but it is already deleted by the destructor of ChatLogic, who owned the ChatBot class originally 
