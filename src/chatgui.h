@@ -19,7 +19,7 @@ private:
 
   //// STUDENT CODE
   //// Task 1: Make _chatLogic as an exclusive owned element to the
-  ///ChatBotPanelDialog
+  /// ChatBotPanelDialog
 
   // ChatLogic *_chatLogic; // old code
   std::unique_ptr<ChatLogic> _chatLogic;
