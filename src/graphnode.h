@@ -22,9 +22,11 @@ private:
   // data handles (not owned) --> The class is NOT responsible for the non-owned
   // parent edges
   std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes
-  ChatBot *_chatBot; // handle to the chatbot --> The chatbot is associated with
+  //ChatBot * _chatBot; // handle to the chatbot --> The chatbot is associated with
                      // a graph node, such that the chatbot object can move
                      // (!!!) throw the graph
+
+  std::unique_ptr<ChatBot> _chatBot;
 
   ////
   //// EOF STUDENT CODE
@@ -56,10 +58,9 @@ public:
   //// STUDENT CODE
   ////
 
-  void MoveChatbotHere(
-      ChatBot
-          *chatbot); // Move the chatbot throu the graph --> MUST be an
+  //void MoveChatbotHere(ChatBot *chatbot); // Move the chatbot throu the graph --> MUST be an
                      // unique_ptr, since the ownership to the chatbot is unique
+  void MoveChatbotHere(std::unique_ptr<ChatBot> &chatbot);
 
   ////
   //// EOF STUDENT CODE

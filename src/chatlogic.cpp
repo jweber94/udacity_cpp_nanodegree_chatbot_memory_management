@@ -16,11 +16,11 @@ ChatLogic::ChatLogic() {
   ////
 
   // create instance of chatbot
-  _chatBot = new ChatBot("../images/chatbot.png");
+  //_chatBot = new ChatBot("../images/chatbot.png");
 
   // add pointer to chatlogic so that chatbot answers can be passed on to the
   // GUI
-  _chatBot->SetChatLogicHandle(this);
+  //_chatBot->SetChatLogicHandle(this);
 
   ////
   //// EOF STUDENT CODE
@@ -31,11 +31,10 @@ ChatLogic::~ChatLogic() {
   ////
 
   // delete chatbot instance
-  std::cout << "calling delete _chatBot"
-            << std::endl; // DEBUG --> If you call delete, the memory of
+  //std::cout << "calling delete _chatBot" << std::endl; // DEBUG --> If you call delete, the memory of
                           // _chatBot is deallocated and the destructor of the
                           // ChatBot class is called
-  delete _chatBot;
+  //delete _chatBot;
 
   // delete all nodes --> We do not need the deletion, since the new
   // implementation does use smartpointer that delete the elements automatically
@@ -269,9 +268,16 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
     }
   }
 
+  // Task 5: Create a ChatBot instance here and move it to the root node to set it up for moving around the graph (the root node is the start position for the ChatBot instance)
+  ChatBot local_chatbot("../images/chatbot.png"); // create a chatbot instance on the stack
+  local_chatbot.SetChatLogicHandle(this);
+  local_chatbot.SetRootNode(rootNode);
+  std::unique_ptr<ChatBot> cb_ptr = std::make_unique<ChatBot>(std::move(local_chatbot)); // makeing a rvalue out of the stack allocated ChatBot instance and then move it to the heap by managing it with a unique_ptr  
+  
   // add chatbot to graph root node
-  _chatBot->SetRootNode(rootNode);
-  rootNode->MoveChatbotHere(_chatBot);
+  //_chatBot->SetRootNode(rootNode); // no longer neccessary in task 5
+  //rootNode->MoveChatbotHere(_chatBot);
+  rootNode->MoveChatbotHere(cb_ptr);
 
   ////
   //// EOF STUDENT CODE
