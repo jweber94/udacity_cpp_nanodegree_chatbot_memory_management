@@ -19,11 +19,9 @@ private:
   //// STUDENT CODE
   ////
 
-  // data handles (owned) 
-  std::vector<std::unique_ptr<GraphNode> > _nodes;
-  std::vector<GraphEdge *>
-      _edges; // In one of the tasks, the ownership of the edges is moved into
-              // the nodes - currently the ChatLogic class owns them both
+  // data handles (owned)
+  std::vector<std::unique_ptr<GraphNode>> _nodes;
+  std::vector<std::unique_ptr<GraphEdge>> _edges;
 
   ////
   //// EOF STUDENT CODE

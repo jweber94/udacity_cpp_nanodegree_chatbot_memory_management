@@ -2,6 +2,7 @@
 #define GRAPHNODE_H_
 
 #include "chatbot.h"
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -14,8 +15,9 @@ private:
   ////
 
   // data handles (owned) --> The class IS responsible for the child edges
-  std::vector<GraphEdge *> _childEdges; // edges to subsequent nodes --> owned
-                                        // by graph node in the finished version
+  std::vector<std::unique_ptr<GraphEdge>>
+      _childEdges; // edges to subsequent nodes --> owned
+                   // by graph node in the finished version
 
   // data handles (not owned) --> The class is NOT responsible for the non-owned
   // parent edges
@@ -49,7 +51,7 @@ public:
   void AddToken(std::string token); // add answers to list --> A tokes is an
                                     // answer for the individual graph node
   void AddEdgeToParentNode(GraphEdge *edge);
-  void AddEdgeToChildNode(GraphEdge *edge);
+  void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
   //// STUDENT CODE
   ////
