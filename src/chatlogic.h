@@ -28,7 +28,7 @@ private:
 
   // data handles (not owned) --> Currently owned
   GraphNode *_currentNode;
-  ChatBot *_chatBot;
+  ChatBot *_chatBot; // just the pointer to the raw data without the intention to manage the underlying memory
   ChatBotPanelDialog *_panelDialog;
 
   // proprietary type definitions

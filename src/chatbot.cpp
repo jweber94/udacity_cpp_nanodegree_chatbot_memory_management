@@ -10,7 +10,7 @@
 
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot() {
-  std::cout << "Called the ChatBot constructor without an image\n";
+  //std::cout << "Called the ChatBot constructor without an image\n";
   // invalidate data handles
   _image = nullptr;
   _chatLogic = nullptr;
@@ -115,6 +115,8 @@ ChatBot::ChatBot(ChatBot &&refChatBot) {
   refChatBot._currentNode = nullptr;
   refChatBot._rootNode = nullptr;
   refChatBot._chatLogic = nullptr;
+
+  _chatLogic->SetChatbotHandle(this); // Link the active ChatBot instance to the ChatLogic to get a handle within ChatLogic and access the chatbot
 }
 
 ChatBot &ChatBot::operator=(ChatBot &&refChatBot) {
@@ -135,6 +137,8 @@ ChatBot &ChatBot::operator=(ChatBot &&refChatBot) {
   refChatBot._currentNode = nullptr;
   refChatBot._rootNode = nullptr;
   refChatBot._chatLogic = nullptr;
+
+  _chatLogic->SetChatbotHandle(this); 
 
   return *this;
 }

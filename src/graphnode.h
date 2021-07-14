@@ -26,7 +26,7 @@ private:
                      // a graph node, such that the chatbot object can move
                      // (!!!) throw the graph
 
-  std::unique_ptr<ChatBot> _chatBot;
+  ChatBot _chatBot; // Every node has its own chatbot instance but this is an empty default-initialized object until the actual chatbot from the ChatLogic class is moved to it
 
   ////
   //// EOF STUDENT CODE
@@ -60,7 +60,7 @@ public:
 
   //void MoveChatbotHere(ChatBot *chatbot); // Move the chatbot throu the graph --> MUST be an
                      // unique_ptr, since the ownership to the chatbot is unique
-  void MoveChatbotHere(std::unique_ptr<ChatBot> &chatbot);
+  void MoveChatbotHere(ChatBot chatbot);
 
   ////
   //// EOF STUDENT CODE

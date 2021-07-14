@@ -272,12 +272,14 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
   ChatBot local_chatbot("../images/chatbot.png"); // create a chatbot instance on the stack
   local_chatbot.SetChatLogicHandle(this);
   local_chatbot.SetRootNode(rootNode);
-  std::unique_ptr<ChatBot> cb_ptr = std::make_unique<ChatBot>(std::move(local_chatbot)); // makeing a rvalue out of the stack allocated ChatBot instance and then move it to the heap by managing it with a unique_ptr  
-  
+  _chatBot = &local_chatbot; 
+  //std::unique_ptr<ChatBot> cb_ptr = std::make_unique<ChatBot>(std::move(local_chatbot)); // makeing a rvalue out of the stack allocated ChatBot instance and then move it to the heap by managing it with a unique_ptr  
+  //_chatBot = cb_ptr.get(); 
+
   // add chatbot to graph root node
   //_chatBot->SetRootNode(rootNode); // no longer neccessary in task 5
   //rootNode->MoveChatbotHere(_chatBot);
-  rootNode->MoveChatbotHere(cb_ptr);
+  rootNode->MoveChatbotHere(std::move(local_chatbot));
 
   ////
   //// EOF STUDENT CODE
@@ -298,5 +300,5 @@ void ChatLogic::SendMessageToUser(std::string message) {
 }
 
 wxBitmap *ChatLogic::GetImageFromChatbot() {
-  return _chatBot->GetImageHandle();
+  return _chatBot->GetImageHandle(); // BUG: we want to access the uninitalized membervariable _chatbot.
 }

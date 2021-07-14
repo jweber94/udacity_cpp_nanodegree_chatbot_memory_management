@@ -28,14 +28,14 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge) {
 //// STUDENT CODE
 //// -->
 //void GraphNode::MoveChatbotHere(ChatBot *chatbot) {
-void GraphNode::MoveChatbotHere(std::unique_ptr<ChatBot> &chatbot) {
+void GraphNode::MoveChatbotHere(ChatBot chatbot) {
   // Since we want to move the ownership of the chatbot instance around, we must hand over a std::unique_ptr according to the C++ core guidelines
   
   // This method is called from another position
   _chatBot = std::move(chatbot); // make the chatbot a rvalue reference with std::move to call the move assignment operator
                       // pass the chatbot handle from the caller-node to the
                       // current node
-  _chatBot->SetCurrentNode(
+  _chatBot.SetCurrentNode(
       this); // set the current node to the current node for the chatbot
              // The current node as well as the chatbot itself has a notion
              // about where the chatbot is currently at within the graph
@@ -50,7 +50,7 @@ void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
                  // period of time, until the chatbot-pointer from the old node
                  // is invalidated --> Solve this with a unique pointer and move
                  // semantics
-  newNode->MoveChatbotHere(_chatBot);
+  newNode->MoveChatbotHere(std::move(_chatBot));
               
   //_chatBot = nullptr; // invalidate pointer at source // no longer needed since in task 5 all memory management is done by the unique_ptr and move semantics
 }
